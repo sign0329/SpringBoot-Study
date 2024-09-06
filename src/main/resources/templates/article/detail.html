@@ -1,0 +1,21 @@
+<html layout:decorate="~{global/layout}">
+
+<div layout:fragment="content" class="p-2">
+
+    <h1 class="font-bold mb-2">글 내용</h1>
+
+    <hr>
+
+    <div class="badge badge-outline" th:text="${article.id}"></div>
+        <span th:text="${article.title}"></span>
+    <div th:text="${article.body}"></div>
+
+    <hr>
+
+    <ul style="display: flex; gap: 20px;">
+        <li><a th:href="|/article/modify/${article.id}|">글 수정</a></li>
+        <li><a onclick="return confirm('정말로 삭제하시겠습니까?');" th:href="|/article/delete/${article.id}|">글 삭제</a></li>
+    </ul>
+
+</div>
+</html>

@@ -1,0 +1,11 @@
+server:
+  port: 8020
+
+spring:
+   security:
+     user:
+       name: user
+       password: 1234
+
+thymeleaf:
+    cache: falss

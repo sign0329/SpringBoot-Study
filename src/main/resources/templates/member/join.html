@@ -1,0 +1,65 @@
+<html layout:decorate="~{global/layout}">
+
+<div layout:fragment="content" class="p-2">
+
+    <h1 class="font mb-2">회원가입</h1>
+
+    <form class="flex flex-col gap-4" method="POST" onsubmit="submitJoinForm(this); return false;">
+        <label class="form-control w-full max-w-xs">
+            <div class="label">
+                <span class="label-text">아이디</span>
+            </div>
+            <input type="text" name="username" placeholder="아이디를 입력해주세요" class="input input-bordered"/>
+
+            <div class="label">
+                <span class="label-text">비밀번호</span>
+            </div>
+            <input type="text" name="password" placeholder="비밀번호를 입력해주세요" class="input input-bordered" />
+
+
+            <div class="label">
+            </div>
+        </label>
+
+        <button type="submit" class="btn btn-primary btn-block">
+            회원가입
+        </button>
+    </form>
+
+
+    <script>
+        function submitJoinForm(form) {
+            const inputusername = form.username;
+            const inputpassword = form.password;
+
+            inputusername.value = inputusername.value.trim();
+            inputpassword.value = inputpassword.value.trim();
+
+            const username = inputusername.value;
+            const password = inputpassword.value;
+
+            if (username.length == 0) {
+                toastWarning('아이디를 입력해주세요.');
+                inputusername.focus();
+
+                return;
+            }
+
+            if (password.length == 0) {
+                toastWarning('비밀번호를 입력해주세요.');
+                inputpassword.focus();
+
+                return;
+            }
+
+            form.submit();
+
+        }
+
+    </script>
+
+
+</div>
+
+
+</html>
