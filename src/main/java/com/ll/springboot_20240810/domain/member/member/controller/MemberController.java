@@ -5,7 +5,6 @@ import com.ll.springboot_20240810.domain.member.service.MemberService;
 import com.ll.springboot_20240810.global.rq.Rq;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -28,8 +27,6 @@ public class MemberController {
     }
 
 
-
-
     @Data
     public static class LoginForm {
         @NotBlank
@@ -42,20 +39,17 @@ public class MemberController {
     @GetMapping("/login")
     String showLogin(){return "/member/login";}
 
-
     @PostMapping("/login")
-    String login(@Valid LoginForm loginForm, HttpServletResponse response, HttpServletRequest req){
+    String login(@Valid LoginForm loginForm, HttpServletResponse response, HttpServletRequest req) {
         Member member = memberService.findByUsername(loginForm.username).get();
-        if (!member.getPassword().equals(loginForm.password)){
+        if (!member.getPassword().equals(loginForm.password)) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
-        HttpSession session = req.getSession();
-        session.setAttribute("logi nedMemberId", member.getId());
+        rq.setSesstionAttr("loginedMemberId", member.getId());
 
         return rq.redirect("/article/list", "로그인이 완료되었습니다.");
     }
-
 
     @Data
     public static class JoinForm {
