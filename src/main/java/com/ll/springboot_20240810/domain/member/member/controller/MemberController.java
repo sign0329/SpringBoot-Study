@@ -51,6 +51,13 @@ public class MemberController {
         return rq.redirect("/article/list", "로그인이 완료되었습니다.");
     }
 
+
+    @GetMapping("/logout")
+    String logout() {
+        rq.removeSessionAttr("loginedMemberId");
+        return rq.redirect("/article/list", "로그아웃이 완료되었습니다.");
+    }
+
     @Data
     public static class JoinForm {
         @NotBlank
