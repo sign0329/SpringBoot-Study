@@ -4,10 +4,12 @@ import com.ll.springboot_20240810.domain.article.article.entity.Article;
 import com.ll.springboot_20240810.domain.article.service.ArticleService;
 import com.ll.springboot_20240810.domain.member.service.MemberService;
 import com.ll.springboot_20240810.global.rq.Rq;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +26,21 @@ public class ArticleController {
     private final ArticleService articleService;
     private final MemberService memberService;
     private final Rq rq;
+
+    @GetMapping("/write")
+    @SneakyThrows
+    String showWrite() {
+        if (!rq.isLogined()) throw new RuntimeException("로그인 후 이용해주세요");
+        return "/article/write";
+    }
+
+    @PostMapping("/write")
+    String write(@Valid WriteForm writeForm, HttpServletRequest req) {
+        if (!rq.isLogined()) throw new RuntimeException("로그인 후 이용해주세요");
+        Article article = articleService.write(writeForm.title, writeForm.body);
+
+        return rq.redirect("/article/list", "%d번 게시물 생성되었습니다.".formatted(article.getId()));
+    }
 
     @GetMapping("/list")
     String showList(Model model) {
@@ -43,10 +60,6 @@ public class ArticleController {
         return "/article/detail";
     }
 
-    @GetMapping("/write")
-    String showWrite() {
-        return "/article/write";
-    }
 
     @Data
     public static class WriteForm {
@@ -56,15 +69,9 @@ public class ArticleController {
         private String body;
     }
 
-    @PostMapping("/write")
-    String write(@Valid WriteForm writeForm) {
-        Article article = articleService.write(writeForm.title, writeForm.body);
-
-        return rq.redirect("/article/list", "%d번 게시물 생성되었습니다.".formatted(article.getId()));
-    }
-
     @GetMapping("/modify/{id}")
     String showModify(Model model, @PathVariable long id) {
+        if (!rq.isLogined()) throw new RuntimeException("로그인 후 이용해주세요");
         Article article = articleService.findById(id).get();
 
         model.addAttribute("article", article);
@@ -82,6 +89,7 @@ public class ArticleController {
 
     @PostMapping("/modify/{id}")
     String modify(@PathVariable long id, @Valid ModifyForm modifyForm) {
+        if (!rq.isLogined()) throw new RuntimeException("로그인 후 이용해주세요");
         articleService.modify(id, modifyForm.title, modifyForm.body);
 
         return rq.redirect("/article/list", "%d번 게시물 수정되었습니다.".formatted(id));
@@ -89,6 +97,7 @@ public class ArticleController {
 
     @GetMapping("/delete/{id}")
     String delete(@PathVariable long id) {
+        if (!rq.isLogined()) throw new RuntimeException("로그인 후 이용해주세요");
         articleService.delete(id);
 
         return rq.redirect("/article/list", "%d번 게시물 삭제되었습니다.".formatted(id));
