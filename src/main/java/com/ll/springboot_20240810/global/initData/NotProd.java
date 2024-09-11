@@ -20,9 +20,9 @@ public class NotProd {
             Member memberUser1 = memberService.join("user1", "1234");
             Member memberUser2 = memberService.join("user2", "1234");
 
-            articleService.write(memberAdmin, "titile1", "body1");
-            articleService.write(memberUser1, "titile1", "body1");
-            articleService.write(memberUser1, "titile1", "body1");
+            articleService.write(memberAdmin, "title1", "body1");
+            articleService.write(memberUser1, "title2", "body2");
+            articleService.write(memberUser1, "title3", "body3");
         };
     }
 }
