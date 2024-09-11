@@ -4,7 +4,6 @@ import com.ll.springboot_20240810.domain.article.article.entity.Article;
 import com.ll.springboot_20240810.domain.article.service.ArticleService;
 import com.ll.springboot_20240810.domain.member.service.MemberService;
 import com.ll.springboot_20240810.global.rq.Rq;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -35,9 +34,9 @@ public class ArticleController {
     }
 
     @PostMapping("/write")
-    String write(@Valid WriteForm writeForm, HttpServletRequest req) {
+    String write(@Valid WriteForm writeForm) {
         if (!rq.isLogined()) throw new RuntimeException("로그인 후 이용해주세요");
-        Article article = articleService.write(writeForm.title, writeForm.body);
+        Article article = articleService.write(rq.getMember(), writeForm.title, writeForm.body);
 
         return rq.redirect("/article/list", "%d번 게시물 생성되었습니다.".formatted(article.getId()));
     }

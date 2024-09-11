@@ -2,10 +2,8 @@ package com.ll.springboot_20240810.domain.article.repository;
 
 import com.ll.springboot_20240810.domain.article.article.entity.Article;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
