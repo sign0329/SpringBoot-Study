@@ -23,7 +23,6 @@ public class AdmHomeContoller {
             throw new RuntimeException("관리자만 접근할수 있습니다.");
         }
 
-
         return "/home/adm/about";
     }
 }
