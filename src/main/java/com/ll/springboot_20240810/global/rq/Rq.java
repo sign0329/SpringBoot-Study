@@ -49,7 +49,7 @@ public class Rq {
         return member;
     }
 
-    public void setSesstionAttr(String attrName, Long value) {
+    public void setSesstionAttr(String attrName, Object value) {
         req.getSession().setAttribute(attrName, value);
     }
 
