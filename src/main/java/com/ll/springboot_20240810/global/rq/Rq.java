@@ -56,8 +56,13 @@ public class Rq {
     public void removeSessionAttr(String attrName) {
         req.getSession().removeAttribute(attrName);
     }
+    public <T> T getSessionAttr(String name) {
+        return (T) req.getSession().getAttribute(name);
+    }
 
     public boolean isAdmin() {
         return getMember().isAdmin();
     }
+
+
 }
