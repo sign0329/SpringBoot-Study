@@ -7,23 +7,24 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>SIMPLE</title>
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 폰트어썸 불러오기 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-    <!--fontAwesome 불러오기-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    <!--  jquery 불러오기  -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- 제이쿼리 불러오기 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
     <!-- toastr 불러오기 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
     <link href="https://jhs512.github.io/toastr/toastr.css" rel="stylesheet">
 
-    <script src="/resources/global.js"></script>
+    <link rel="stylesheet" href="/resource/global.css">
+    <script src="/resource/global.js"></script>
 
 </head>
 <body>
 
 <link href="https://cdn.jsdelivr.net/npm/daisyui@4.0.8/dist/full.min.css" rel="stylesheet" type="text/css"/>
-<link rel="stylesheet" href="/resources/global.css">
+<script src="https://cdn.tailwindcss.com"></script>
 
 <div class="navbar bg-base-100">
     <div class="navbar-start">
@@ -35,17 +36,20 @@
                 </svg>
             </label>
             <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                <li><a href="/article/list"><i class="fa-solid fa-list"></i>게시물 리스트</a></li>
-                <li th:if="${@rq.logined}"><a href="/article/write"><i class="fa-solid fa-pen"></i>게시물 작성</a></li>
-                <li th:unless="${@rq.logined}"><a href="/member/login"><i class="fa-solid fa-right-to-bracket"></i> 로그인</a></li>
-                <li th:unless="${@rq.logined}"><a href="/member/join"><i class="fa-solid fa-user-plus"></i> 회원가입</a></li>
+                <li><a href="/article/list"><i class="fa-solid fa-list"></i> 게시물 리스트</a></li>
+                <li th:if="${@rq.logined}"><a href="/article/write"><i class="fa-solid fa-pen"></i> 게시물 작성</a></li>
+                <li th:unless="${@rq.logined}"><a href="/member/login"><i class="fa-solid fa-right-to-bracket"></i> 로그인</a>
+                </li>
+                <li th:unless="${@rq.logined}"><a href="/member/join"><i class="fa-solid fa-user-plus"></i> 회원가입</a>
+                </li>
                 <li th:if="${@rq.logined}"><a href="/member/me"><i class="fa-solid fa-user"></i> 내 정보</a></li>
-                <li th:if="${@rq.logined}"><a href="/member/logout"><i class="fa-solid fa-right-from-bracket"></i> 로그아웃</a></li>
+                <li th:if="${@rq.logined}"><a href="/member/logout"><i class="fa-solid fa-right-from-bracket"></i> 로그아웃</a>
+                </li>
             </ul>
         </div>
     </div>
     <div class="navbar-center">
-        <a href="/article/write" class="btn btn-ghost text-xl">SIMPLE</a>
+        <a href="/" class="btn btn-ghost text-xl">SIMPLE</a>
     </div>
     <div class="navbar-end">
         <a th:if="${@rq.isLogined}" href="/member/me" class="btn btn-ghost text-xl">
@@ -55,9 +59,10 @@
 </div>
 
 <script>
-    const queryParmas = getQueryParams();
-    if (queryParmas.msg) {
-        toastNotice(queryParmas.msg);
+    const queryParams = getQueryParams();
+
+    if (queryParams.msg) {
+        toastNotice(queryParams.msg);
     }
 </script>
 

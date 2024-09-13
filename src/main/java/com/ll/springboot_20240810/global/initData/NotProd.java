@@ -17,12 +17,15 @@ public class NotProd {
     ) {
         return args -> {
             Member memberAdmin = memberService.join("admin", "1234");
-            Member memberUser1 = memberService.join("user1", "1234");
-            Member memberUser2 = memberService.join("user2", "1234");
+            Member memberUser1 = memberService.join("user", "1234");
+            Member memberUser2 = memberService.join("user1", "1234");
+            Member memberUser3 = memberService.join("user2", "1234");
 
             articleService.write(memberAdmin, "title1", "body1");
             articleService.write(memberUser1, "title2", "body2");
             articleService.write(memberUser1, "title3", "body3");
+            articleService.write(memberUser2, "title4", "body4");
+            articleService.write(memberUser3, "title5", "body5");
         };
     }
 }

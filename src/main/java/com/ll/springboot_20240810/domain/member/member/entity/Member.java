@@ -1,9 +1,6 @@
 package com.ll.springboot_20240810.domain.member.member.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
@@ -11,7 +8,9 @@ import java.util.List;
 @ToString
 @Getter
 @Setter
+@EqualsAndHashCode
 public class Member {
+    @EqualsAndHashCode.Include
     private Long id;
     private String username;
     private String password;
@@ -25,7 +24,7 @@ public class Member {
         return username.equals("admin");
     }
 
-    public List<String> authorities() {
+    public List<String> getAuthorities() {
         if (isAdmin()){
             return List.of("ROLE_ADMIN");
         }

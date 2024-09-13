@@ -19,22 +19,16 @@ public class WebMbvConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry){
         registry.addInterceptor(needToLoginInterceptor)
-                .addPathPatterns("/adm/**");
-        registry.addInterceptor(needToAdminInterceptor)
                 .addPathPatterns("/adm/**")
                 .addPathPatterns("/article/write")
                 .addPathPatterns("/article/modify/**")
-                .addPathPatterns("/article/delete/**");
+                .addPathPatterns("/article/delete/**");;
+        registry.addInterceptor(needToAdminInterceptor)
+                .addPathPatterns("/adm/**");
         registry.addInterceptor(needToLogoutInterceptor)
                 .addPathPatterns("/member/login")
                 .addPathPatterns("/member/join")
                 .addPathPatterns("/member/findUsername")
                 .addPathPatterns("/member/findPassword");
-
-
-
-
     }
-
-
 }

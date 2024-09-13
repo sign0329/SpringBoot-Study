@@ -49,17 +49,15 @@ public class Rq {
         return member;
     }
 
-    public void setSesstionAttr(String attrName, Object value) {
+    public void setSessionAttr(String attrName, Object value) {
         req.getSession().setAttribute(attrName, value);
     }
-
     public void removeSessionAttr(String attrName) {
         req.getSession().removeAttribute(attrName);
     }
     public <T> T getSessionAttr(String name) {
         return (T) req.getSession().getAttribute(name);
     }
-
     public boolean isAdmin() {
         return getMember().isAdmin();
     }

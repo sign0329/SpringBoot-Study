@@ -2,7 +2,6 @@ package com.ll.springboot_20240810.domain.article.article.controller;
 
 import com.ll.springboot_20240810.domain.article.article.entity.Article;
 import com.ll.springboot_20240810.domain.article.service.ArticleService;
-import com.ll.springboot_20240810.domain.member.service.MemberService;
 import com.ll.springboot_20240810.global.rq.Rq;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -40,6 +39,7 @@ public class ArticleController {
         return rq.redirect("/article/list", "%d번 게시물 생성되었습니다.".formatted(article.getId()));
     }
 
+
     @GetMapping("/list")
     String showList(Model model) {
         List<Article> articles = articleService.findAll();
@@ -67,21 +67,25 @@ public class ArticleController {
         private String body;
     }
 
-    @GetMapping("/modify/{id}")
-    String showModify(Model model, @PathVariable long id) {
-        Article article = articleService.findById(id).get();
-
-        model.addAttribute("article", article);
-
-        return "/article/modify";
-    }
-
     @Data
     public static class ModifyForm {
         @NotBlank
         private String title;
         @NotBlank
         private String body;
+    }
+
+    @GetMapping("/modify/{id}")
+    String showModify(Model model, @PathVariable long id) {
+        Article article = articleService.findById(id).get();
+
+        if (article ==null) throw new RuntimeException("존재하지 않는 게시물입니다");
+
+        if (!articleService.canModify(rq.getMember(), article)) throw new RuntimeException("수정권한이 없습니다");
+
+        model.addAttribute("article", article);
+
+        return "/article/modify";
     }
 
     @PostMapping("/modify/{id}")
@@ -93,7 +97,13 @@ public class ArticleController {
 
     @GetMapping("/delete/{id}")
     String delete(@PathVariable long id) {
-        articleService.delete(id);
+        Article article = articleService.findById(id).get();
+
+        if (article ==null) throw new RuntimeException("존재하지 않는 게시물입니다");
+
+        if (!articleService.canDelete(rq.getMember(), article)) throw new RuntimeException("삭재권한이 없습니다");
+
+        articleService.delete(article);
 
         return rq.redirect("/article/list", "%d번 게시물 삭제되었습니다.".formatted(id));
     }
