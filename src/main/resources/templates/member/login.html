@@ -4,8 +4,8 @@
 
     <h1 class="font mb-2"><i class="fa-solid fa-right-to-bracket"></i>로그인</h1>
 
-    <form class="flex flex-col gap-4" method="POST" onsubmit="submitLoginForm(this); return false;">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+    <form class="flex flex-col gap-4" method="POST" th:action onsubmit="submitLoginForm(this); return false;">
+<!--        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">-->
         <label class="form-control w-full max-w-xs">
             <div class="label">
                 <span class="label-text">아이디</span>

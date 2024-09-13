@@ -4,7 +4,7 @@
 
     <h1 class="font mb-2">글 작성</h1>
 
-    <form class="flex flex-col gap-4" method="POST" onsubmit="submitWriteForm(this); return false;">
+    <form class="flex flex-col gap-4" method="POST" th:action onsubmit="submitWriteForm(this); return false;">
         <label class="form-control w-full max-w-xs">
             <div class="label">
                 <span class="label-text">제목</span>
