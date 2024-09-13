@@ -2,41 +2,52 @@ package com.ll.springboot_20240810.global.rq;
 
 import com.ll.springboot_20240810.domain.member.member.entity.Member;
 import com.ll.springboot_20240810.domain.member.service.MemberService;
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
+import org.springframework.security.core.userdetails.User;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Optional;
 @RequestScope
 @Component
 @Getter
+@RequiredArgsConstructor
 public class Rq {
     private final HttpServletRequest req;
     private final HttpServletResponse resp;
     private final MemberService memberService;
+    private User user;
     private Member member;
 
-    public Rq(HttpServletRequest req, HttpServletResponse resp, MemberService memberService) {
-        this.req = req;
-        this.resp = resp;
-        this.memberService = memberService;
+    @PostConstruct
+    public void init() {
+        // 현재 로그인한 회원의 인증정보를 가져옴
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication.getPrincipal() instanceof User) {
+            this.user = (User) authentication.getPrincipal();
+        }
     }
+
+
     public String redirect(String path, String msg) {
         msg = URLEncoder.encode(msg, StandardCharsets.UTF_8);
         return "redirect:" + path + "?msg=" + msg;
     }
-    private long getMemberId() {
-        return Optional
-                .ofNullable(req.getSession().getAttribute("loginedMemberId"))
-                .map(id -> (long) id)
-                .orElse(0L);
+
+    private String getMemberUsername() {
+        return user.getUsername();
     }
+
     public boolean isLogined() {
-        return getMemberId() > 0;
+        return user != null;
     }
     public Member getMember() {
         if (!isLogined()) {
@@ -44,7 +55,7 @@ public class Rq {
         }
 
         if (member == null)
-            member = memberService.findById(getMemberId()).get();
+            memberService.findByUsername(getMemberUsername()).get();
 
         return member;
     }
@@ -58,9 +69,9 @@ public class Rq {
     public <T> T getSessionAttr(String name) {
         return (T) req.getSession().getAttribute(name);
     }
-    public boolean isAdmin() {
-        return getMember().isAdmin();
-    }
-
-
+  public boolean isAdmin(){
+      return user.getAuthorities()
+              .stream()
+              .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+  }
 }
