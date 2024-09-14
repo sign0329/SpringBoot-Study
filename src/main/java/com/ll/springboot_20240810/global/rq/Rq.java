@@ -53,18 +53,16 @@ public class Rq {
         if (!isLogined()) {
             return null;
         }
-
         if (member == null)
-            memberService.findByUsername(getMemberUsername()).get();
-
+           member = memberService.findByUsername(getMemberUsername()).get();
         return member;
     }
 
     public void setSessionAttr(String attrName, Object value) {
         req.getSession().setAttribute(attrName, value);
     }
-    public void removeSessionAttr(String attrName) {
-        req.getSession().removeAttribute(attrName);
+    public void removeSessionAttr(String name) {
+        req.getSession().removeAttribute(name);
     }
     public <T> T getSessionAttr(String name) {
         return (T) req.getSession().getAttribute(name);

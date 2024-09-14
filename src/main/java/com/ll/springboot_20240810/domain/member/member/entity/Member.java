@@ -1,7 +1,6 @@
 package com.ll.springboot_20240810.domain.member.member.entity;
 
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.List;
@@ -26,10 +25,11 @@ public class Member {
         return username.equals("admin");
     }
 
-    public List<GrantedAuthority> getAuthorities() {
+    public List<SimpleGrantedAuthority> getAuthorities() {
         if (isAdmin()) {
             return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_MEMBER"));
         }
+
         return List.of(new SimpleGrantedAuthority("ROLE_MEMBER"));
     }
 }
