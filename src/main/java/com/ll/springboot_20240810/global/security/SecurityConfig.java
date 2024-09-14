@@ -16,9 +16,6 @@ public class SecurityConfig {
                 .formLogin(
                         formLogin -> formLogin
                                 .loginPage("/member/login")
-                                .loginProcessingUrl("/member/login")
-                                .usernameParameter("username")
-                                .passwordParameter("password")
                                 .defaultSuccessUrl("/article/list")
                 )
                 .build();
