@@ -18,6 +18,11 @@ public class SecurityConfig {
                                 .loginPage("/member/login")
                                 .defaultSuccessUrl("/article/list")
                 )
+                .logout(
+                        logout -> logout
+                                .logoutUrl("/member/logout")
+                                .logoutSuccessUrl("/article/list")
+                )
                 .build();
     }
 
