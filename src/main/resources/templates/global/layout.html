@@ -17,11 +17,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
     <link href="https://jhs512.github.io/toastr/toastr.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="/resource/global.css">
-    <script src="/resource/global.js"></script>
+    <link rel="stylesheet" href="/resources/global.css">
+    <script src="/resources/global.js"></script>
 
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+
 </head>
 <body>
 
@@ -62,7 +63,7 @@
 </div>
 
 <script>
-    const queryParams = getQueryParams();
+   const queryParams = getQueryParams();
 
     if (queryParams.msg) {
         toastNotice(queryParams.msg);
