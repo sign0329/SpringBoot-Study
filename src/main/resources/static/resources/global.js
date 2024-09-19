@@ -34,7 +34,7 @@ function getQueryParams() {
 
     return paramsObj;
 }
-
+//확인
 $(function () {
     $('select[value]').each(function (index, el) {
         const value = $(el).attr('value');
