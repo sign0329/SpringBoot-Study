@@ -1,9 +1,15 @@
 <html layout:decorate="~{global/layout}">
 
+
+<head> </head>
+
+<body>
+
 <div layout:fragment="content">
 
-    <h1 class="font mb-2">글 수정</h1>
-
+<h1 class="font-bold mb-2">
+    <i class="font mb-2">글 수정</i>
+</h1>
     <form class="flex flex-col gap-4" method="POST" th:action onsubmit="submitWriteForm(this); return false;">
       <input type="hidden" name="_method" value="PUT">
         <label class="form-control w-full max-w-xs">
@@ -15,7 +21,7 @@
             <div class="label">
                 <span class="label-text">내용</span>
             </div>
-            <input type="text" name="body" placeholder="내용을 입력해주세요" class="input input-bordered" th:value="${article.body}" />
+            <textarea maxlength="100000" rows="5" name="body" placeholder="내용을 입력해주세요" class="input input-bordered" th:value="${article.body}" />
 
 
             <div class="label">
@@ -30,25 +36,20 @@
 
     <script>
         function submitModifyForm(form) {
-            const inputTitle = form.title;
-            const inputBody = form.body;
+            form.title.value = form.title.value.trim();
 
-            inputTitle.value = inputTitle.value.trim();
-            inputBody.value = inputBody.value.trim();
-
-            const title = inputTitle.value;
-            const body = inputBody.value;
-
-            if (title.length == 0) {
+            if (form.title.value.length == 0) {
                 toastWarning('제목을 입력해주세요.');
-                inputTitle.focus();
+                form.title.focus();
 
                 return;
             }
 
-            if (body.length == 0) {
+            form.body.value = form.title.body.trim();
+
+            if (form.body.value.length == 0) {
                 toastWarning('내용을 입력해주세요.');
-                inputBody.focus();
+                form.body.focus();
 
                 return;
             }
@@ -58,4 +59,5 @@
     </script>
 
 </div>
+</body>
 </html>

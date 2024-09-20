@@ -1,5 +1,8 @@
 <html layout:decorate="~{global/layout}">
 
+
+<head></head>
+<body>
 <div layout:fragment="content" class="p-2">
 
     <h1 class="font mb-2">글 작성</h1>
@@ -14,8 +17,7 @@
             <div class="label">
                 <span class="label-text">내용</span>
             </div>
-            <input type="text" name="body" placeholder="내용을 입력해주세요" class="input input-bordered" />
-
+            <textarea maxlength="100000" rows="5" name="body" placeholder="내용을 입력해주세요" class="input input-bordered"/>
 
             <div class="label">
             </div>
@@ -29,25 +31,20 @@
 
     <script>
         function submitWriteForm(form) {
-            const inputTitle = form.title;
-            const inputBody = form.body;
+            form.title.value =form.title.value.trim();
+            form.body.value =form.body.value.trim();
 
-            inputTitle.value = inputTitle.value.trim();
-            inputBody.value = inputBody.value.trim();
 
-            const title = inputTitle.value;
-            const body = inputBody.value;
-
-            if (title.length == 0) {
+            if (form.title.length == 0) {
                 toastWarning('제목을 입력해주세요.');
-                inputTitle.focus();
+                form.title.focus();
 
                 return;
             }
 
-            if (body.length == 0) {
+            if (form.body.length == 0) {
                 toastWarning('내용을 입력해주세요.');
-                inputBody.focus();
+                form.body.focus();
 
                 return;
             }
@@ -60,6 +57,5 @@
 
 
 </div>
-
-
+</body>
 </html>

@@ -1,5 +1,6 @@
 <html layout:decorate="~{global/layout}">
-
+<head></head>
+<body>
 <div layout:fragment="content" class="p-2">
 
     <h1 class="font mb-2">회원가입</h1>
@@ -14,7 +15,7 @@
             <div class="label">
                 <span class="label-text">비밀번호</span>
             </div>
-            <input type="text" name="password" placeholder="비밀번호를 입력해주세요" class="input input-bordered" />
+            <input type="text" name="password" placeholder="비밀번호를 입력해주세요" class="input input-bordered"/>
 
 
             <div class="label">
@@ -29,25 +30,20 @@
 
     <script>
         function submitJoinForm(form) {
-            const inputusername = form.username;
-            const inputpassword = form.password;
+            form.username.value = form.username.value.trim();
+            form.password.value = form.password.value.trim();
 
-            inputusername.value = inputusername.value.trim();
-            inputpassword.value = inputpassword.value.trim();
 
-            const username = inputusername.value;
-            const password = inputpassword.value;
-
-            if (username.length == 0) {
+            if (form.username.length == 0) {
                 toastWarning('아이디를 입력해주세요.');
-                inputusername.focus();
+                form.username.focus();
 
                 return;
             }
 
-            if (password.length == 0) {
+            if (form.password.length == 0) {
                 toastWarning('비밀번호를 입력해주세요.');
-                inputpassword.focus();
+                form.password.focus();
 
                 return;
             }
@@ -61,5 +57,5 @@
 
 </div>
 
-
+</body>
 </html>
