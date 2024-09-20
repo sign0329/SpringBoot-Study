@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,7 @@ public class ArticleController {
     private final ArticleService articleService;
     private final Rq rq;
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/write")
     @SneakyThrows
     String showWrite() {
@@ -31,6 +33,7 @@ public class ArticleController {
         return "/article/write";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/write")
     String write(@Valid WriteForm writeForm) {
         if (!rq.isLogined()) throw new RuntimeException("로그인 후 이용해주세요");
@@ -39,7 +42,7 @@ public class ArticleController {
         return rq.redirect("/article/list", "%d번 게시물 생성되었습니다.".formatted(article.getId()));
     }
 
-
+    @PreAuthorize("permitAll()")
     @GetMapping("/list")
     String showList(Model model) {
         List<Article> articles = articleService.findAll();
@@ -49,6 +52,7 @@ public class ArticleController {
         return "article/list";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/detail/{id}")
     String showDetail(Model model, @PathVariable long id) {
         Article article = articleService.findById(id).get();
@@ -75,6 +79,7 @@ public class ArticleController {
         private String body;
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/modify/{id}")
     String showModify(Model model, @PathVariable long id) {
         Article article = articleService.findById(id).get();
@@ -86,6 +91,7 @@ public class ArticleController {
         return "/article/modify";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/modify/{id}")
     String modify(@PathVariable long id, @Valid ModifyForm modifyForm) {
         articleService.modify(id, modifyForm.title, modifyForm.body);
@@ -93,6 +99,7 @@ public class ArticleController {
         return rq.redirect("/article/list", "%d번 게시물 수정되었습니다.".formatted(id));
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/delete/{id}")
     String delete(@PathVariable long id) {
         Article article = articleService.findById(id).get();

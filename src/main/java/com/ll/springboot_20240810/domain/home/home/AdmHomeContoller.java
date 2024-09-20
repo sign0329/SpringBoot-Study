@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class AdmHomeContoller {
     private final Rq rq;
+
+    
     @GetMapping("/adm")
     public String showMain(){
         return "/home/adm/main";
