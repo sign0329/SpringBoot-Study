@@ -9,12 +9,13 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
-import org.springframework.security.core.userdetails.User;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+
 @RequestScope
 @Component
 @Getter
@@ -49,27 +50,33 @@ public class Rq {
     public boolean isLogined() {
         return user != null;
     }
+
     public Member getMember() {
         if (!isLogined()) {
             return null;
         }
         if (member == null)
-           member = memberService.findByUsername(getMemberUsername()).get();
+            member = memberService.findByUsername(getMemberUsername()).get();
         return member;
     }
 
     public void setSessionAttr(String attrName, Object value) {
         req.getSession().setAttribute(attrName, value);
     }
+
     public void removeSessionAttr(String name) {
         req.getSession().removeAttribute(name);
     }
+
     public <T> T getSessionAttr(String name) {
         return (T) req.getSession().getAttribute(name);
     }
-  public boolean isAdmin(){
-      return user.getAuthorities()
-              .stream()
-              .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
-  }
+
+    public boolean isAdmin() {
+        if (!isLogined()){ return false;}
+
+        return user.getAuthorities()
+                .stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+    }
 }
