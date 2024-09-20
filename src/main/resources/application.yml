@@ -2,10 +2,14 @@ server:
   port: 8020
 
 spring:
-   security:
+  security:
      user:
        name: user
        password: 1234
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
 
 thymeleaf:
     cache: falss
