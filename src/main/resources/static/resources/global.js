@@ -22,19 +22,19 @@ function parseMsg(msg) {
 }
 
 function toastWarning(msg) {
-    const [_msg, ttl] =
-        parseMsg(msg);
-    if (ttl && parseInt(ttl) < new Data().getTime()) return;
+    const [_msg, ttl] = parseMsg(msg);
 
-    toastr["warning"](msg, "경고");
+    if (ttl && parseInt(ttl) < new Date().getTime()) return;
+
+    toastr["warning"](_msg, "경고");
 }
 
 function toastNotice(msg) {
-    const [_msg, ttl] =
-        parseMsg(msg);
-    if (ttl && parseInt(ttl) < new Data().getTime()) return;
+    const [_msg, ttl] = parseMsg(msg);
 
-    toastr["success"](msg, "성공");
+    if (ttl && parseInt(ttl) < new Date().getTime()) return;
+
+    toastr["success"](_msg, "성공");
 }
 
 function getQueryParams() {

@@ -1,7 +1,9 @@
 <html layout:decorate="~{global/layout}">
 
 
-<head></head>
+<head>
+    <title th:text="| 글 수정 ${article.id}. ${article.title}|"></title>
+</head>
 
 <body>
 
@@ -24,7 +26,8 @@
                 <label class="label">
                     <span class="label-text">내용</span>
                 </label>
-                <textarea maxlength="100000" rows="5" name="body" placeholder="내용을 입력해주세요" class="textarea textarea-bordered"
+                <textarea maxlength="100000" rows="5" name="body" placeholder="내용을 입력해주세요"
+                          class="textarea textarea-bordered"
                           th:text="${article.body}"></textarea>
             </div>
 
