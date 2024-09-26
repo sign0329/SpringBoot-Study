@@ -49,7 +49,7 @@ public class ArticleController {
         return "article/list";
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("permitAll()")
     @GetMapping("/detail/{id}")
     String showDetail(Model model, @PathVariable long id) {
         Article article = articleService.findById(id).get();

@@ -40,9 +40,18 @@ public class ArticleControllerTest {
                 .andExpect(handler().methodName("showList"))
                 .andExpect(content().string(containsString("""
                         글 목록
+                        """.stripIndent().trim())))
+                .andExpect(content().string(containsString("""
+                        3번 : 제목3
+                        """.stripIndent().trim())))
+                .andExpect(content().string(containsString("""
+                        2번 : 제목2
+                        """.stripIndent().trim())))
+                .andExpect(content().string(containsString("""
+                        1번 : 제목1
                         """.stripIndent().trim())));
-
     }
+
 
     // GET /article/detail/{id}
     @Test
