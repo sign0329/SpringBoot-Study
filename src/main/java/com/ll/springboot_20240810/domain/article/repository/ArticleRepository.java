@@ -39,4 +39,11 @@ public class ArticleRepository {
     public void delete(Article article) {
         articles.remove(article);
     }
+
+    public Optional<Article> findLatest() {
+        return Optional.ofNullable(
+                articles.isEmpty()  ? null : articles.getLast()
+        );
+
+    }
 }
