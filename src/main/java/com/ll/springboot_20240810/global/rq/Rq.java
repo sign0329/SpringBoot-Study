@@ -40,10 +40,11 @@ public class Rq {
 
 
     public String redirect(String path, String msg) {
+
         if (msg == null) {
             msg = "";  // 기본값을 설정하거나 예외를 던질 수 있습니다.
+            return "redirect:" + path;
         }
-
         boolean containsTtl = msg.contains(";ttl=");
 
         if (containsTtl) {

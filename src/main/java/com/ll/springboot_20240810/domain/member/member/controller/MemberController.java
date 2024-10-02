@@ -1,5 +1,6 @@
 package com.ll.springboot_20240810.domain.member.member.controller;
 
+import com.ll.springboot_20240810.domain.member.member.entity.Member;
 import com.ll.springboot_20240810.domain.member.service.MemberService;
 import com.ll.springboot_20240810.global.rq.Rq;
 import jakarta.validation.Valid;
@@ -40,7 +41,9 @@ public class MemberController {
     @PreAuthorize("isAnonymous()")
     @PostMapping("/join")
     String join(@Valid JoinForm joinForm) {
-        memberService.join(joinForm.username, joinForm.password);
+        Member member = memberService.join(joinForm.username, joinForm.password);
+
+        if (member==null) {return "/member/join";}
         return rq.redirect("/member/login", "회원가입이 완료되었습니다");
     }
 

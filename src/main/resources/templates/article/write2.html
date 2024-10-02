@@ -1,0 +1,35 @@
+<html layout:decorate="~{global/layout}">
+
+
+<head>
+    <title> 게시물 작성 </title>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <h1 class="font mb-2">글 작성</h1>
+    <form th:action class="flex flex-col gap-4" method="post">
+        <label class="form-control w-full max-w-xs">
+            <div class="label">
+                <span class="label-text">제목</span>
+            </div>
+            <input type="text" name="title" placeholder="제목을 입력해주세요" class="input input-bordered"/>
+
+            <div class="label">
+                <span class="label-text">내용</span>
+            </div>
+            <textarea name="body" maxlength="100000" rows="5" placeholder="내용을 입력해주세요"
+                      class="textarea textarea-bordered"></textarea>
+
+            <div class="label">
+            </div>
+        </label>
+
+        <button type="submit" class="btn btn-primary btn-block">
+            글 작성
+        </button>
+    </form>
+
+</div>
+</body>
+</html>

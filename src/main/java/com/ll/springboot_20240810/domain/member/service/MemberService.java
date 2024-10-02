@@ -7,7 +7,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -18,9 +17,12 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
 
     public Member join(String username, String password) {
+        if(findByUsername(username).isPresent()){return null;}
+
         password = passwordEncoder.encode(password);
         Member member = new Member(username, password) {
         };
+
         memberRepository.save(member);
 
         return member;
