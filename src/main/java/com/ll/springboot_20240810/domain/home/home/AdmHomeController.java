@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/adm")
-public class AdmHomeContoller {
+public class AdmHomeController {
     private final Rq rq;
-
 
     @GetMapping("")
     public String showMain(){
