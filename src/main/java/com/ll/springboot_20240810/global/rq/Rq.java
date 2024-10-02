@@ -40,12 +40,18 @@ public class Rq {
 
 
     public String redirect(String path, String msg) {
-        boolean containTtl = msg.contains(";ttl=");
-        if (!containTtl) {msg = msg.split(";ttl=", 2)[0];}
+        if (msg == null) {
+            msg = "";  // 기본값을 설정하거나 예외를 던질 수 있습니다.
+        }
+
+        boolean containsTtl = msg.contains(";ttl=");
+
+        if (containsTtl) {
+            msg = msg.split(";ttl=", 2)[0];
+        }
 
         msg = URLEncoder.encode(msg, StandardCharsets.UTF_8);
-        msg +="'ttl=" +  (new Date().getTime() + 1000 * 5);
-
+        msg += ";ttl=" + (new Date().getTime() + 1000 * 5);
 
         return "redirect:" + path + "?msg=" + msg;
     }
@@ -80,9 +86,7 @@ public class Rq {
     }
 
     public boolean isAdmin() {
-        if (!isLogined()) {
-            return false;
-        }
+        if (!isLogined()) {return false;}
 
         return user.getAuthorities()
                 .stream()

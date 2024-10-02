@@ -19,7 +19,6 @@ public class SecurityConfig {
                         authorizeHttpRequests -> authorizeHttpRequests
                                 .requestMatchers("adm/**")
                                 .hasRole("ADMIN")
-                                .requestMatchers("/article/list", "/article/detail/**").permitAll() // 비회원도 게시글 목록 및 상세 보기 가능
                                 .anyRequest()
                                 .permitAll()
                 )
