@@ -43,7 +43,7 @@ public class MemberController {
     String join(@Valid JoinForm joinForm) {
         Member member = memberService.join(joinForm.username, joinForm.password);
 
-        if (member==null) {return "/member/join";}
+        if (member == null) {return "global/js";}
         return rq.redirect("/member/login", "회원가입이 완료되었습니다");
     }
 
