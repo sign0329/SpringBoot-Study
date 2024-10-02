@@ -12,10 +12,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
-import java.util.Date;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
 
 @RequestScope
 @Component
@@ -40,8 +40,13 @@ public class Rq {
 
 
     public String redirect(String path, String msg) {
+        boolean containTtl = msg.contains(";ttl=");
+        if (!containTtl) {msg = msg.split(";ttl=", 2)[0];}
+
         msg = URLEncoder.encode(msg, StandardCharsets.UTF_8);
-        msg += ";ttl=" + (new Date().getTime() + 1000 * 5);
+        msg +="'ttl=" +  (new Date().getTime() + 1000 * 5);
+
+
         return "redirect:" + path + "?msg=" + msg;
     }
 
@@ -75,7 +80,9 @@ public class Rq {
     }
 
     public boolean isAdmin() {
-        if (!isLogined()){ return false;}
+        if (!isLogined()) {
+            return false;
+        }
 
         return user.getAuthorities()
                 .stream()

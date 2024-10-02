@@ -25,11 +25,11 @@ public class SecurityConfig {
                 )
                 .formLogin(formLogin -> formLogin
                         .loginPage("/member/login") // 커스텀 로그인 페이지
-                        .defaultSuccessUrl("/article/list") // 로그인 성공 시 리다이렉트
+                        .defaultSuccessUrl("/") // 로그인 성공 시 리다이렉트
                 )
                 .logout(logout -> logout
                         .logoutUrl("/member/logout")
-                        .logoutSuccessUrl("/article/list") // 로그아웃 성공 시 리다이렉트
+                        .logoutSuccessUrl("/") // 로그아웃 성공 시 리다이렉트
                 )
                 .build();
     }

@@ -36,7 +36,7 @@ public class ArticleController {
         if (!rq.isLogined()) throw new RuntimeException("로그인 후 이용해주세요");
         Article article = articleService.write(rq.getMember(), writeForm.title, writeForm.body);
 
-        return rq.redirect("/article/list", "%d번 게시물 생성되었습니다.".formatted(article.getId()));
+        return rq.redirect("/", "%d번 게시물 생성되었습니다.".formatted(article.getId()));
     }
 
     @PreAuthorize("permitAll()")
@@ -93,7 +93,7 @@ public class ArticleController {
     String modify(@PathVariable long id, @Valid ModifyForm modifyForm) {
         articleService.modify(id, modifyForm.title, modifyForm.body);
 
-        return rq.redirect("/article/list", "%d번 게시물 수정되었습니다.".formatted(id));
+        return rq.redirect("/", "%d번 게시물 수정되었습니다.".formatted(id));
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -105,6 +105,6 @@ public class ArticleController {
 
         articleService.delete(article);
 
-        return rq.redirect("/article/list", "%d번 게시물 삭제되었습니다.".formatted(id));
+        return rq.redirect("/", "%d번 게시물 삭제되었습니다.".formatted(id));
     }
 }
