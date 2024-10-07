@@ -29,7 +29,9 @@ public class MemberController {
 
     @PreAuthorize("isAnonymous()")
     @GetMapping("/login")
-    String showLogin(){return "/member/login";}
+    String showLogin() {
+        return "/member/login";
+    }
 
     @Data
     public static class JoinForm {
@@ -42,11 +44,15 @@ public class MemberController {
     @PreAuthorize("isAnonymous()")
     @PostMapping("/join")
     String join(@Valid JoinForm joinForm) {
-        RsData<Member> joinRs = memberService.join(joinForm.username, joinForm.password);
+        try {
+            RsData<Member> joinRs = memberService.join(joinForm.username, joinForm.password);
 
-
-        if (joinRs.isFail()) {return rq.historyBack(joinRs.getMsg());}
-        return rq.redirect("/member/login", joinRs.getMsg());
+            if (joinRs.isFail()) {
+                return rq.historyBack(joinRs.getMsg());
+            }
+            return rq.redirect("/member/join", joinRs.getMsg());
+        } catch (RuntimeException e) {
+            return rq.historyBack(e.getMessage());
+        }
     }
-
 }
