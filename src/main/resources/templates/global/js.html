@@ -2,6 +2,6 @@
     const msg = /*[[${msg}]]*/ null;
 </script>
 <script>
-    if (msg) alert(msg);
+    localStorage.setItem('historyBack', msg);
     history.back();
 </script>

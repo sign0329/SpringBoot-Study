@@ -39,7 +39,7 @@ public class Rq {
         }
     }
 
-    public String redirect(String path, RsData<?> rs){
+    public String redirect(String path, RsData<?> rs) {
         return redirect(path, rs.getMsg());
     }
 
@@ -92,7 +92,9 @@ public class Rq {
     }
 
     public boolean isAdmin() {
-        if (!isLogined()) {return false;}
+        if (!isLogined()) {
+            return false;
+        }
 
         return user.getAuthorities()
                 .stream()
@@ -100,7 +102,7 @@ public class Rq {
     }
 
     public String historyBack(String msg) {
-            resp.setStatus(400);
+        resp.setStatus(400);
         req.setAttribute("msg", msg);
 
         return "global/js";
@@ -112,7 +114,9 @@ public class Rq {
 
 
     public String redirectOrBack(String url, RsData<Member> rs) {
-        if(rs.isFail()){ return historyBack(rs);}
+        if (rs.isFail()) {
+            return historyBack(rs);
+        }
 
         return redirect(url, rs);
     }

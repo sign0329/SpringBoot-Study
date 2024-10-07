@@ -38,6 +38,15 @@
     if (queryParams.msg) {
         toastNotice(queryParams.msg);
     }
+
+    //historyBack에 의해서 돌아온 경우
+    $(window).bind("pageshow", function (event) {
+        const historyBackMsg = localStorage.getItem('historyBack');
+        if (historyBackMsg) {
+            toastWarning(historyBackMsg);
+            localStorage.removeItem('historyBack');
+        }
+    });
 </script>
 
 <main class="p-4">
