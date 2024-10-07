@@ -133,6 +133,18 @@ public class ArticleControllerTest {
 
 
     }
+    @DisplayName("작성자가 아니라면 수정폼을 볼 수 없다.")
+    @WithUserDetails("user")
+    void t5() throws Exception {
+        // WHEN
+        ResultActions resultActions = mvc
+                .perform(get("/article/modify/1"))
+                .andDo(print());
+        // THEN
+        resultActions
+                .andExpect(status().is4xxClientError());
+    }
+
 
     // GET /article/modify/{id}
     @Test

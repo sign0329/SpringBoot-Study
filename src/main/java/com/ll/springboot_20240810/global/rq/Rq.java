@@ -2,6 +2,7 @@ package com.ll.springboot_20240810.global.rq;
 
 import com.ll.springboot_20240810.domain.member.member.entity.Member;
 import com.ll.springboot_20240810.domain.member.service.MemberService;
+import com.ll.springboot_20240810.global.rsData.RsData;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -36,6 +37,10 @@ public class Rq {
         if (authentication.getPrincipal() instanceof User) {
             this.user = (User) authentication.getPrincipal();
         }
+    }
+
+    public String redirect(String path, RsData<?> rs){
+        return redirect(path, rs.getMsg());
     }
 
 
@@ -99,5 +104,16 @@ public class Rq {
         req.setAttribute("msg", msg);
 
         return "global/js";
+    }
+
+    public String historyBack(RsData<?> rs) {
+        return historyBack(rs.getMsg());
+    }
+
+
+    public String redirectOrBack(String url, RsData<Member> rs) {
+        if(rs.isFail()){ return historyBack(rs);}
+
+        return redirect(url, rs);
     }
 }
