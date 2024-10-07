@@ -1,4 +1,4 @@
-package com.ll.springboot_20240810.domain.Home;
+package com.ll.springboot_20240810.domain.home;
 
 import com.ll.springboot_20240810.domain.home.home.AdmHomeController;
 import org.junit.jupiter.api.DisplayName;
