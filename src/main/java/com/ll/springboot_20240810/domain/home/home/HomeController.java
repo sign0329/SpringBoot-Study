@@ -4,12 +4,10 @@ import com.ll.springboot_20240810.global.rq.Rq;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -35,20 +33,14 @@ public class HomeController {
                 );
     }
 
-
-    @GetMapping("/home/test")
+    @GetMapping("/home/test1")
     @ResponseBody
-    public Map<String, Object> showTest1() {
-        return new HashMap<>(){{
-            put("msg", "test1");
-        }};
-
+    public String showTest1() {
+        return Thread.currentThread().getName();
     }
-
-
     @GetMapping("/home/test2")
-    public String showTest2(Model model) {
-        model.addAttribute("age", 20);
-        return "/home/home/test2";
+    @ResponseBody
+    public String showTest2(String name) {
+        return name + "님 안녕하세요하하!!!";
     }
 }

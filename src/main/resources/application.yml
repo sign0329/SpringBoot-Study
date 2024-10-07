@@ -3,13 +3,28 @@ server:
 
 spring:
   security:
-     user:
-       name: user
-       password: 1234
+    user:
+      name: user
+      password: 1234
+
   mvc:
     hiddenmethod:
       filter:
         enabled: true
 
+threads:
+  virtual:
+    enabled: true
+
 thymeleaf:
-    cache: falss
+  cache: falss
+
+datasource:
+  url: jdbc:h2:./sb_dev;MODE=MySQL
+  driverClassName: org.h2.Driver
+  username: sa
+  password:
+
+jpa:
+  hibernate:
+    ddl-auto: update
