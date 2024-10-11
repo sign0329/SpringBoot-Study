@@ -2,6 +2,7 @@ package com.ll.springboot_20240810.global.exceptionHandler;
 
 import com.ll.springboot_20240810.global.rq.Rq;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,6 +14,6 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(RuntimeException.class)
     public String handlerException(RuntimeException ex) {
-        return rq.historyBack(ex.getMessage());
+        return rq.historyBack(ex);
     }
 }

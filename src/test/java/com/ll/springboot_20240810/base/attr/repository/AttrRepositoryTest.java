@@ -24,7 +24,7 @@ public class AttrRepositoryTest {
 
     @DisplayName("attr 저장")
     @Test
-    @Rollback(value = false)
+    @Rollback
     void t1() {
         Attr attr = Attr.builder()
                 .createDate(LocalDateTime.now())

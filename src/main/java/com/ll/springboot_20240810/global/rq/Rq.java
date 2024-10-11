@@ -3,6 +3,7 @@ package com.ll.springboot_20240810.global.rq;
 import com.ll.springboot_20240810.domain.member.member.entity.Member;
 import com.ll.springboot_20240810.domain.member.service.MemberService;
 import com.ll.springboot_20240810.global.rsData.RsData;
+import com.ll.springboot_20240810.standard.utill.Ut;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -106,6 +107,14 @@ public class Rq {
         req.setAttribute("msg", msg);
 
         return "global/js";
+    }
+
+    public String historyBack(Exception ex) {
+        String exStr = Ut.exception.toString(ex);
+        req.setAttribute("exStr", exStr);
+        System.err.println(exStr);
+
+        return historyBack(ex.getMessage());
     }
 
     public String historyBack(RsData<?> rs) {
